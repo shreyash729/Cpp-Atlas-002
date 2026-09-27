@@ -37,5 +37,3 @@ The search experience should handle an empty query safely and return a bounded, 
 - Search finds matching terms anywhere in the indexed phrase.
 - Close spelling mistakes produce a useful autocorrect suggestion.
 - Empty input is handled safely and respects the configured result limit.
-- The interface updates without a manual server restart after candidate code changes.
-- The live application remains available on port `8080` and works through the preview path.
