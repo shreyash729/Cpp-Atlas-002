@@ -15,7 +15,11 @@ function render(items) {
 async function update() {
   const value = query.value.trim();
   correction.hidden = true;
-  if (!value) { resultTitle.textContent = 'Suggestions'; render([]); return; }
+  if (!value) {
+    resultTitle.textContent = 'Suggestions';
+    render((await load('api/suggestions?q=')).suggestions);
+    return;
+  }
   const data = await load(`api/suggestions?q=${encodeURIComponent(value)}`);
   resultTitle.textContent = value.length < 3 ? 'Suggestions' : 'Search matches';
   render(value.length < 3 ? data.suggestions : (await load(`api/search?q=${encodeURIComponent(value)}`)).results);

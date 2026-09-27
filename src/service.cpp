@@ -64,9 +64,8 @@ std::vector<Suggestion> TrieService::autocomplete(const std::string& prefix, std
         result.push_back({entry.word, entry.category, entry.popularity});
     }
     std::sort(result.begin(), result.end(), [](const Suggestion& left, const Suggestion& right) {
-        return left.popularity > right.popularity;
+        return left.popularity < right.popularity;
     });
-    if (result.size() > limit) result.resize(limit);
     return result;
 }
 
@@ -75,7 +74,7 @@ std::vector<Suggestion> TrieService::search(const std::string& query, std::size_
     std::vector<Suggestion> result;
     for (const auto& entry : entries_) {
         const std::string candidate = lower(entry.word);
-        if (needle.empty() || candidate.find(needle) != std::string::npos) {
+        if (needle.empty() || candidate.rfind(needle, 0) == 0) {
             result.push_back({entry.word, entry.category, entry.popularity});
         }
     }
@@ -98,7 +97,7 @@ std::string TrieService::autocorrect(const std::string& query) const {
             closest = &entry;
         }
     }
-    return closest != nullptr && best_distance <= 4 ? closest->word : query;
+    return query;
 }
 
 std::size_t TrieService::word_count() const { return entries_.size(); }
