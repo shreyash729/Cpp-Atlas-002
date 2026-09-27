@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtrie_service.a CMakeFiles/trie_service.dir/src/service.cpp.o
+/usr/bin/ranlib libtrie_service.a

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atlas Search</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar"><div class="brand"><span class="brand-mark">A</span><div><strong>Atlas Search</strong><span>Product discovery workspace</span></div></div><div class="status"><i></i> Local index online</div></header>
+    <section class="hero"><div><p class="eyebrow">PRODUCT DISCOVERY / LIVE SEARCH</p><h1>Make every query<br><em>feel understood.</em></h1><p class="lede">Find the right resource faster with instant suggestions, ranked matches, and helpful typo recovery.</p></div><div class="hero-stat"><span>INDEXED TERMS</span><b id="word-count">—</b><small>ready for exploration</small></div></section>
+    <section class="workspace"><div class="search-panel"><label for="query">Try a query</label><div class="search-box"><span>⌕</span><input id="query" autocomplete="off" placeholder="Type “auto”, “system”, or a typo…"><button id="clear" title="Clear query">×</button></div><div class="chips"><button data-query="auto">auto</button><button data-query="system">system</button><button data-query="autocorect">autocorect</button></div><div id="correction" class="correction" hidden></div></div><div class="results-panel"><div class="result-head"><div><span class="eyebrow">LIVE OUTPUT</span><h2 id="result-title">Suggestions</h2></div><span id="result-count" class="count">0 matches</span></div><div id="results" class="results"><div class="empty"><span>⌁</span><p>Start typing to traverse the index</p><small>Prefix suggestions appear instantly</small></div></div></div></section>
+    <footer><span>ATLAS SEARCH <b>·</b> C++17</span><span>Autocomplete <b>·</b> Spell check <b>·</b> Search</span></footer>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
