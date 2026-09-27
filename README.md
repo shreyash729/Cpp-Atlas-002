@@ -8,13 +8,13 @@ The challenge contains four user-visible behavior bugs. Reproduce each one throu
 
 ### 1. Prefix autocomplete is incomplete or incorrectly ranked
 
-In the **Try a query** field, enter `auto`.
+In the **Try a query** field, type `auto` and inspect the suggestions before pressing Enter.
 
 The application should show the strongest prefix matches first, including `autocomplete` and `autocorrect`. A bug may cause valid terms to be missing, return unrelated terms, or appear in the wrong popularity order.
 
 ### 2. Search suggestions do not match the full query
 
-Enter `search` in the query field, or choose a suggested query chip when available.
+Enter `search` in the query field and press Enter to view full search results.
 
 The results should include terms containing the query, not only terms that begin with it. A bug may return too few results, miss `search suggestions`, or produce inconsistent ordering.
 

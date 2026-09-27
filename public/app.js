@@ -3,6 +3,7 @@ const results = document.querySelector('#results');
 const resultTitle = document.querySelector('#result-title');
 const resultCount = document.querySelector('#result-count');
 const correction = document.querySelector('#correction');
+let searchMode = false;
 
 async function load(path) {
   const response = await fetch(path);
@@ -21,12 +22,19 @@ async function update() {
     return;
   }
   const data = await load(`api/suggestions?q=${encodeURIComponent(value)}`);
-  resultTitle.textContent = value.length < 3 ? 'Suggestions' : 'Search matches';
-  render(value.length < 3 ? data.suggestions : (await load(`api/search?q=${encodeURIComponent(value)}`)).results);
+  if (searchMode) {
+    resultTitle.textContent = 'Search matches';
+    render((await load(`api/search?q=${encodeURIComponent(value)}`)).results);
+  } else {
+    resultTitle.textContent = 'Suggestions';
+    render(data.suggestions);
+  }
   const fix = await load(`api/autocorrect?q=${encodeURIComponent(value)}`);
   if (fix.correction.toLowerCase() !== value.toLowerCase()) { correction.hidden = false; correction.innerHTML = `Did you mean <strong>${fix.correction}</strong>?`; }
 }
 query.addEventListener('input', update);
-document.querySelector('#clear').addEventListener('click', () => { query.value = ''; update(); query.focus(); });
-document.querySelectorAll('[data-query]').forEach(button => button.addEventListener('click', () => { query.value = button.dataset.query; update(); query.focus(); }));
+query.addEventListener('keydown', event => { if (event.key === 'Enter') { searchMode = true; update(); } });
+query.addEventListener('input', () => { searchMode = false; });
+document.querySelector('#clear').addEventListener('click', () => { searchMode = false; query.value = ''; update(); query.focus(); });
+document.querySelectorAll('[data-query]').forEach(button => button.addEventListener('click', () => { searchMode = false; query.value = button.dataset.query; update(); query.focus(); }));
 load('api/stats').then(data => document.querySelector('#word-count').textContent = data.words);
