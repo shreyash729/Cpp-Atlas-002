@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 cd "$(dirname "$0")"
-mkdir -p build
+rm -rf build
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j2
 PORT=8080 ./build/server &
